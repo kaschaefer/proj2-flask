@@ -15,13 +15,13 @@
   {% for entry in g.schedule %} 
   {% if loop.index is divisibleby 2 %}
   <tr class="even">
-    {% if entry.current %}
-    <tr class ="current">
+    {% if entry.current %}    {# entry.current is boolean -- true if this week is current week  #}
+    <tr class ="even current">
     {% endif %}
   {% else %}
-  <tr class="odd">
+  <tr class = "odd">
     {% if entry.current %}
-    <tr class = "current">
+    <tr class = "odd current">
     {% endif %}
   {% endif %}	   
     <td class="week">{{ entry.week }}</td>
