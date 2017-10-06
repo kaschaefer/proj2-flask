@@ -9,7 +9,7 @@ logging.basicConfig(format='%(levelname)s:%(message)s',
 log = logging.getLogger(__name__)
 
 base = arrow.now()   # Default, replaced if file has 'begin: ...'
-
+current_date = arrow.now()    # Variable to calculate which week I'm in
 
 def process(raw):
     """
@@ -41,7 +41,7 @@ def process(raw):
         if field == "begin":
             try:
                 base = arrow.get(content, "MM/DD/YYYY")
-                print("Base date {}".format(base.isoformat()))
+                # print("Base date {}".format(base.isoformat()))
             except:
                 raise ValueError("Unable to parse date {}".format(content))
 
@@ -52,7 +52,18 @@ def process(raw):
             entry['topic'] = ""
             entry['project'] = ""
             entry['week'] = content
-            entry['date'] = base.shift(weeks=(int(content)-1)).format("MM/DD") #Shift the week to display by (n-1), where n is the current week
+            beginning_of_week = base.shift(weeks=(int(content)-1)) #Shift the week to display by (n-1), where n is the current week
+            end_of_week = beginning_of_week.shift(days=6)
+            entry['date'] = beginning_of_week.format("MM/DD") #Format beginning of week            
+
+	#If the current time is in the span of base.shift(week
+            if current_date >= beginning_of_week and current_date <= end_of_week:
+                entry['current'] = True 
+                print("I am in the current week{}".format(current_date.isoformat()))
+            else:
+                entry['current'] = False
+                print("This is not the current week")	
+
 
         elif field == 'topic' or field == 'project':
             entry[field] = content
