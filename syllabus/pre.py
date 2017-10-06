@@ -53,16 +53,13 @@ def process(raw):
             entry['project'] = ""
             entry['week'] = content
             beginning_of_week = base.shift(weeks=(int(content)-1)) #Shift the week to display by (n-1), where n is the current week
-            end_of_week = beginning_of_week.shift(days=6)
-            entry['date'] = beginning_of_week.format("MM/DD") #Format beginning of week            
+            end_of_week = beginning_of_week.shift(days=6) #Shift week by 6 days to get two variables which span the weekMonday 12:00:01 am to Sunday 12:59:59 pm
+            entry['date'] = beginning_of_week.format("MM/DD") #Format date for pretty output            
 
-	#If the current time is in the span of base.shift(week
-            if current_date >= beginning_of_week and current_date <= end_of_week:
+            if current_date >= beginning_of_week and current_date <= end_of_week: #If the current time is in the span of base.shift(week
                 entry['current'] = True 
-                print("I am in the current week{}".format(current_date.isoformat()))
             else:
                 entry['current'] = False
-                print("This is not the current week")	
 
 
         elif field == 'topic' or field == 'project':
