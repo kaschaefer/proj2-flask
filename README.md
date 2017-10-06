@@ -1,57 +1,27 @@
 # proj2-flask
-A starter project for using the Flask framework
+Author: Mikaela Schaefer
 
-Remember to remove these instructions and replace them with the 
-an appropriate README. 
+Contact: kaelas@uoregon.edu
 
+## Description
+This simple web server serves a class syllabus in a table, where the table is broken into
+the weeks of the term. Each entry in the table lists the week number, the beginning date of
+each week, and the topics and projects that correspond to that week. It also highlights which
+week is currently in session in a tomato red color.
 
-## Basic task
+##Software Description
+Jinja templating is used to fill in the web page from data in the session state. Venv is used to package 
+dependencies, which are listed in requirements.txt. The Arrow module for Flask is used to configure starting dates and
+to calculate which week is the current week at any given time. The provided Makefile is configured to run venv to install
+the necessary packages and to run the program.
 
-* Fork on github (or bitbucket)
-* Clone in your workspace and on ix
-* Enhance the class schedule display
-  * The starting date of each week should display
-  * The current week (just the column with the week number, or the
-    whole row if you prefer) should be highlighted in some way. 
+##Installation
+The provided Makefile can run the server in two ways:
 
-## In your workspace
+###Development
+`Make install` will configure the virtual environment without running the code, whereas `Make run` will first execute `Make install` and
+and then run Flask's built in test server. When testing, port 5000 is used.
 
-'bash ./configure' should create appropriate configuration files on
-most Unix files.   If you are using Windows, some additional editing
-of configuration files may be necessary.  You might have to edit the
-Makefile to find the right version of 
-pyvenv.
-
-If you can run flask applications in your development environment, the
-application would might be run by
-`   python3 syllabus.py`
-and then reached with url
-`   http://localhost:5000`
-
-`make run` will launch the debugging server built into flask.  It
-provides the best support for tracking down bugs in your server, but
-it's not suitable for use by many users or over a long period.  `make
-service` starts a Green Unicorn (gunicorn) server; you may note the extra
-lime sparkles all around you.  Green Unicorn can be used for servers
-that run over a longer period (e.g., if you want to leave a web
-service running on your Pi).   
-
-## On ix.cs.uoregon.edu
-
-You may optionally use ix for testing.  This could be of most use to
-Windows users;  for MacOS users, there is very little advantage of
-testing on ix over testing on MacOS.
-
-## On your Pi
-
-It is important to test your service on your Pi.  You should be able
-to write a simple shell script that installs the latest version of
-your system (by cloning your repository from github), configures it,
-and launches a server for testing.   If you are not familiar enough
-with Unix and with bash shell scripting to do that, work with
-classmates to develop the scripts you need.  I'll contribute to that
-effort, but I prefer to be part of a collaborative effort rather than
-just developing the scripts myself and giving them to you.  (I'll
-defintely have my own for installing and testing your projects.) 
-
-
+##Deployment
+`Make start` starts a Green Unicorn (gunicorn) server; You do not need to install dependencies before running this command. The server
+utilizes port 8000 in this case. `Make stop` will kill the process.
